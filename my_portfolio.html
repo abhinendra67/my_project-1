@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Developer Portfolio</title>
+  <style>
+    *{
+      margin:0;
+      padding:0;
+    }
+    body{
+      background-color: rgb(0,0,33);
+      color:white;
+      font-family:'Poppins',sans-serif;
+    }
+    nav{
+      display:flex;
+      justify-content:space-around;
+      align-items:center;
+      height:80px;
+      background-color: rgb(18, 18, 62);
+
+    }
+    
+    nav ul{
+      display: flex;
+      justify-content: center;
+    }
+    nav ul li{
+      list-style: none;
+      margin :0 25px;
+    }
+    nav ul li a{
+      text-decoration: none;
+      color:white;
+    }
+    nav ul li a:hover{
+      color:rgb(153,153,226);
+      font-size:1.02rem;
+    }
+    main hr{
+      border:0;
+      background: #9c97f1;
+      height:1.2px;
+      margin:40px 84px;
+
+    }
+    .left{
+      font-size:1.5rem;
+    }
+    .firstSection{
+      display:flex;
+      justify-content: space-around;
+      align-items:center;
+      margin:130px 0;
+    }
+    .firstSection >div{
+      width:40%;
+    }
+    .leftSection{
+      font-size:3rem;
+    }
+    .leftSection .buttons{
+      padding:50px 0;
+    }
+    .leftSection .btn{
+      padding:12px;
+      background-color:#1e2167;
+      border:2px solid white;
+      border-radius: 6px;
+      font-size:20px;
+      cursor:pointer;
+    }
+    .rightSecton{
+      width: 80%;
+      margin:50px 0;
+    }
+    .purple{
+      color:rgb(170, 107, 228);
+    }
+    .text-gray{
+      color:gray;
+    }
+    #element{
+      color:rgb(170, 107, 228);
+    }
+    .secondSection{
+      max-width: 80vw;
+      margin:auto;
+    }
+    .secondSection h1{
+      font-size:1.9rem;
+    }
+    .secondSection .box{
+      background-color: white;
+      width:77vw;
+      height:2px;
+      margin:56px 0;
+      display:flex;
+    }
+    .secondSection .vertical{
+      height:93px;
+      width:1px;
+      background-color: white;
+      margin:0 120px;
+    }
+    .image-top{
+      width:23px;
+      position:relative;
+      top:-32px;
+      left:-9px;
+    }
+    .vertical-title{
+      position:relative;
+      top:75px;
+      width:150px;
+      font-size: 14px;
+
+    }
+    .vertical-desc{
+      position:relative;
+      top:86px;
+      color:gray;
+      font-size:9px;      
+    }
+    footer{
+      background-color: #0e0e1a;
+      margin-top: 600px;
+    }
+    .footer{
+      display:flex;
+      padding:23px 122px;
+      justify-content: space-evenly;
+    }
+    .footer ul{
+      list-style:none;
+    }
+    .footer > div{
+      width:233px;
+    }
+    footer .footer-rights{
+      text-align:center;
+      color:gray;
+      padding:12px;
+    }
+
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <div class="left">Abhinendra's Portfolio</div>
+      <div class="right"></div>
+      <ul>
+        <li><a href="my_portfolio.html">Home</a></li>
+        <li><a href="/">About</a></li>
+        <li><a href="/">Projects</a></li>
+        <li><a href="/">Contact Me</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <section class="firstSection">
+      <div class="leftSection">
+        Hi, My name is <span class="purple">Abhinendra</span>
+        <div>and I am a passionate</div>
+        <span id="element"></span>
+        <div class="buttons">
+          <a href="file:///C:/Users/abhin/OneDrive/Documents/My6_Resume-Abhinendra.pdf"><button class="btn">Download Resume</button></a>
+          <a href="https://github.com/abhinendra67/my_project-1"><button class="btn">Visit Github</button></a>
+        </div>
+      </div>
+      <div class="rightSection">
+        <img style="width:500px;height:500px;margin-left: 67px;border-radius: 50%;" src="c:\Users\abhin\Downloads\ChatGPT Image Aug 11, 2025, 08_40_16 PM.png"alt="">
+      </div>
+    </section>
+    <hr>
+    <section class="secondSection">
+      <span class="text-gray">What I have so far</span>
+      <h1>Work Experience</h1>
+      <div class="box">
+        <div class="vertical">
+          <img class="image-top"src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/HTML5_logo_and_wordmark.svg/1200px-HTML5_logo_and_wordmark.svg.png" alt="">
+          <div class="vertical-title">
+            HTML Dveloper(2010-2012)
+          </div>
+          <div class="vertical-desc">
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Assumenda impedit, cum sapiente consectetur ipsa praesentium! Accusamus facilis voluptate voluptatibus fugiat hic nihil excepturi.
+          </div>
+        </div>
+        <div class="vertical">
+          <img class="image-top"src="https://static.vecteezy.com/system/resources/thumbnails/018/930/698/small/facebook-logo-facebook-icon-transparent-free-png.png" alt="">
+          <div class="vertical-title">
+            Node.js Developer-facebook(2010-2012)
+          </div>
+          <div class="vertical-desc">
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Assumenda impedit, cum sapiente consectetur ipsa praesentium! Accusamus facilis voluptate voluptatibus fugiat hic nihil excepturi.
+          </div>
+        </div>
+        <div class="vertical">
+          <img class="image-top"src="https://ichef.bbci.co.uk/ace/standard/976/cpsprodpb/E802/production/_89649395_instagram_logo_976.jpg" alt="">
+          <div class="vertical-title">
+            HTML Developer-instagram(2010-2012)
+          </div>
+          <div class="vertical-desc">
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Assumenda impedit, cum sapiente consectetur ipsa praesentium! Accusamus facilis voluptate voluptatibus fugiat hic nihil excepturi.
+          </div>
+        </div>
+        <div class="vertical">
+          <img class="image-top"src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWK7U1qR8TSAuBf4OEb-SerRUliMZK3OwOeg&s" alt="">
+          <div class="vertical-title">
+            Software Developer-YouTube(2010-2012)
+          </div>
+          <div class="vertical-desc">
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Assumenda impedit, cum sapiente consectetur ipsa praesentium! Accusamus facilis voluptate voluptatibus fugiat hic nihil excepturi.
+          </div>
+        </div>
+        <div class="vertical">
+          <img class="image-top"src="https://logos-world.net/wp-content/uploads/2020/04/Twitter-Emblem.png" alt="">
+          <div class="vertical-title">
+            Node.js Developer-Twitter(2010-2012)
+          </div>
+          <div class="vertical-desc">
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Assumenda impedit, cum sapiente consectetur ipsa praesentium! Accusamus facilis voluptate voluptatibus fugiat hic nihil excepturi.
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <div class="footer">
+      <div class="footer-first">
+        <h3>Abhinendra's Developer Portfolio</h3>
+      </div>
+      <div class="footer-second">
+        <ul>
+          <li>Home</li>
+          <li>About</li>
+          <li>Service</li>
+          <li>Contact</li>
+        </ul>
+      </div>
+      <div class="footer-third">
+        <ul>
+          <li>Home</li>
+          <li>About</li>
+          <li>Service</li>
+          <li>Contact</li>
+        </ul>
+      </div>
+      <div class="footer-fourth">
+        <ul>
+          <li>Home</li>
+          <li>About</li>
+          <li>Service</li>
+          <li>Contact</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-rights">
+      Copyright &#169; abhinendraportfolio.com | All rights reversed
+    </div>
+  </footer>
+  <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+  <!--Setup and start animation!-->
+  <script>
+    var typed = new Typed('#element', {
+      strings: ['<i>Web</i> developer.', '&amp; a Web Designer.'],
+      typeSpeed: 50,
+    });
+  </script>
+</body>
+</html>
