@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cross & Zero — Tic‑Tac‑Toe</title>
+  <style>
+    :root{
+      --bg: #0f172a;           /* slate-900 */
+      --card: #111827ee;       /* gray-900 */
+      --muted: #94a3b8;        /* slate-400 */
+      --text: #e5e7eb;         /* gray-200 */
+      --accent: #22c55e;       /* green-500 */
+      --accent-2: #60a5fa;     /* blue-400 */
+      --danger: #f97316;       /* orange-500 */
+      --shadow: 0 20px 40px rgba(0,0,0,.45);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+      background: radial-gradient(1000px 600px at 80% -10%, #1e293b 0%, transparent 50%),
+                  radial-gradient(900px 600px at 0% 110%, #0b1020 0%, transparent 50%),
+                  var(--bg);
+      color:var(--text);
+      display:grid; place-items:center;
+      padding:24px;
+    }
+    .game{
+      width:min(92vw, 760px);
+      backdrop-filter: blur(10px);
+      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02)) , var(--card);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:24px;
+      box-shadow: var(--shadow);
+      padding:28px;
+    }
+    h1{
+      margin:0 0 6px;
+      font-weight:800; letter-spacing:.2px; font-size: clamp(22px, 3vw, 30px);
+    }
+    .sub{color:var(--muted); font-size:14px; margin-bottom:18px}
+    .status{
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+      padding:14px 16px; border:1px solid rgba(255,255,255,.08);
+      border-radius:16px; background:rgba(2,6,23,.35);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.03);
+      margin-bottom:16px;
+    }
+    .pill{
+      display:inline-flex; align-items:center; gap:8px; padding:6px 12px; border-radius:999px;
+      border:1px solid rgba(255,255,255,.08); background:rgba(148,163,184,.1);
+      font-weight:700; letter-spacing:.3px; font-size:13px;
+    }
+    .pill .dot{width:8px; height:8px; border-radius:999px; background:var(--accent)}
+    .pill.o .dot{background:var(--accent-2)}
+
+    .board{
+      display:grid; grid-template-columns: repeat(3, 1fr); gap:12px;
+      width: min(92vw, 520px); margin:16px auto; user-select:none;
+    }
+    .cell{
+      position:relative; display:grid; place-items:center;
+      aspect-ratio: 1/1; width:100%;
+      font-weight:900; font-size: clamp(38px, 9vw, 72px);
+      color:#ffffff; text-shadow: 0 2px 10px rgba(0,0,0,.35);
+      border-radius:20px; border:1px solid rgba(255,255,255,.1);
+      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      box-shadow: var(--shadow), inset 0 0 0 1px rgba(255,255,255,.04);
+      cursor:pointer; transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease, background .2s ease;
+    }
+    .cell:hover{ transform: translateY(-1px); box-shadow: 0 12px 26px rgba(0,0,0,.35); }
+    .cell:disabled{ cursor:not-allowed; opacity:.9; }
+    .cell.x{ color: var(--accent); }
+    .cell.o{ color: var(--accent-2); }
+    .cell.win{ outline: 2px solid currentColor; box-shadow: 0 0 0 4px rgba(255,255,255,.07), 0 18px 36px rgba(0,0,0,.4); animation: pulse 1.2s ease-in-out infinite; }
+    @keyframes pulse{ 0%{transform:scale(1)} 50%{transform:scale(1.02)} 100%{transform:scale(1)} }
+
+    .controls{ display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-top:16px }
+    .btn{
+      padding:10px 14px; border-radius:12px; border:1px solid rgba(255,255,255,.12);
+      background: #0b1220; color:var(--text); font-weight:700; letter-spacing:.3px;
+      box-shadow: 0 10px 20px rgba(0,0,0,.35);
+      cursor:pointer; transition: transform .12s ease, background .2s ease, border-color .2s ease;
+    }
+    .btn:hover{ transform: translateY(-1px); }
+    .btn.primary{ background: linear-gradient(90deg, var(--accent), #10b981); border-color: rgba(16,185,129,.6); color:#032915 }
+    .btn.danger{ background: linear-gradient(90deg, var(--danger), #ef4444); border-color: rgba(239,68,68,.6); }
+
+    .footer{ text-align:center; color:var(--muted); font-size:12px; margin-top:18px }
+    .sr-only{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); border:0; }
+  </style>
+</head>
+<body>
+  <main class="game" aria-labelledby="title">
+    <h1 id="title">Cross & Zero</h1>
+    <div class="sub">A clean, responsive Tic‑Tac‑Toe built with just HTML, CSS & JavaScript.</div>
+
+    <section class="status" aria-live="polite" aria-atomic="true">
+      <div id="turnPill" class="pill"><span class="dot" aria-hidden="true"></span><span id="turnText">X's turn</span></div>
+      <div id="statusText" class="pill" style="background:rgba(34,197,94,.14)">Playing…</div>
+    </section>
+
+    <section id="board" class="board" role="grid" aria-label="Tic‑Tac‑Toe Board">
+      <button class="cell" role="gridcell" aria-label="Cell 1" data-index="0"></button>
+      <button class="cell" role="gridcell" aria-label="Cell 2" data-index="1"></button>
+      <button class="cell" role="gridcell" aria-label="Cell 3" data-index="2"></button>
+      <button class="cell" role="gridcell" aria-label="Cell 4" data-index="3"></button>
+      <button class="cell" role="gridcell" aria-label="Cell 5" data-index="4"></button>
+      <button class="cell" role="gridcell" aria-label="Cell 6" data-index="5"></button>
+      <button class="cell" role="gridcell" aria-label="Cell 7" data-index="6"></button>
+      <button class="cell" role="gridcell" aria-label="Cell 8" data-index="7"></button>
+      <button class="cell" role="gridcell" aria-label="Cell 9" data-index="8"></button>
+    </section>
+
+    <div class="controls">
+      <button id="resetBtn" class="btn danger" type="button" title="Reset the current game">Reset</button>
+      <button id="newBtn" class="btn primary" type="button" title="Start a fresh game">New Game</button>
+    </div>
+
+    <div class="footer">Tip: Click any square to place your mark. First to 3 in a row wins.</div>
+  </main>
+
+  <script>
+    (function(){
+      const cells = Array.from(document.querySelectorAll('.cell'));
+      const statusText = document.getElementById('statusText');
+      const turnPill   = document.getElementById('turnPill');
+      const turnText   = document.getElementById('turnText');
+      const resetBtn   = document.getElementById('resetBtn');
+      const newBtn     = document.getElementById('newBtn');
+
+      const WINS = [
+        [0,1,2],[3,4,5],[6,7,8], // rows
+        [0,3,6],[1,4,7],[2,5,8], // cols
+        [0,4,8],[2,4,6]          // diags
+      ];
+
+      let board, player, done, moves;
+
+      function init({randomStarter=false}={}){
+        board = Array(9).fill(null);
+        player = randomStarter ? (Math.random()<.5 ? 'X' : 'O') : 'X';
+        done = false; moves = 0;
+        cells.forEach(c=>{ c.textContent=''; c.className='cell'; c.disabled=false; });
+        setStatus('Playing…');
+        setTurnPill(player);
+      }
+
+      function setTurnPill(p){
+        turnText.textContent = `${p}'s turn`;
+        turnPill.classList.toggle('o', p==='O');
+      }
+
+      function setStatus(msg, type){
+        statusText.textContent = msg;
+        // soft color hints
+        const map = { win: 'rgba(34,197,94,.18)', draw: 'rgba(148,163,184,.18)', playing: 'rgba(96,165,250,.18)' };
+        const bg = type==='win'?map.win: type==='draw'?map.draw: map.playing;
+        statusText.style.background = bg;
+      }
+
+      function checkWinner(){
+        for(const combo of WINS){
+          const [a,b,c] = combo;
+          if(board[a] && board[a]===board[b] && board[a]===board[c]) return combo;
+        }
+        return null;
+      }
+
+      function endGame({winner=null, combo=null}){
+        done = true;
+        cells.forEach(btn=>btn.disabled=true);
+        if(winner){
+          setStatus(`${winner} wins!`, 'win');
+          if(combo) combo.forEach(i=> cells[i].classList.add('win'));
+        }else{
+          setStatus(`It's a draw.`, 'draw');
+        }
+      }
+
+      function play(index){
+        if(done || board[index]) return; // ignore clicks when not allowed
+        board[index] = player; moves++;
+        const btn = cells[index];
+        btn.textContent = player;
+        btn.classList.add(player.toLowerCase());
+        btn.setAttribute('aria-label', `Cell ${index+1}: ${player}`);
+
+        const combo = checkWinner();
+        if(combo){ endGame({winner: player, combo}); return; }
+        if(moves===9){ endGame({}); return; }
+
+        player = player==='X' ? 'O' : 'X';
+        setTurnPill(player);
+        setStatus('Playing…');
+      }
+
+      // Bind events
+      cells.forEach(btn=> btn.addEventListener('click', e => play(+e.currentTarget.dataset.index)) );
+      resetBtn.addEventListener('click', ()=> init());
+      newBtn.addEventListener('click', ()=> init({randomStarter:true}));
+
+      // Keyboard accessibility: allow 1–9 keys to play
+      window.addEventListener('keydown', (e)=>{
+        if(e.key>='1' && e.key<='9'){
+          play(+e.key - 1);
+        }
+      });
+
+      init();
+    })();
+  </script>
+</body>
+</html>
